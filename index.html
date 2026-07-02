@@ -1052,9 +1052,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ================= TESTIMONIALS DATA + RENDER ================= */
   const TESTIMONIALS = [
-    { q: 'Add a short, powerful client quote here — focus on the results and the experience of working together.', n: '[Client Name]', r: '[Role, Company]' },
-    { q: 'Add a second testimonial — what changed after the edit shipped? Views, engagement, or brand feel.', n: '[Client Name]', r: '[Role, Company]' },
-    { q: 'A third quote rounds out the section — keep it specific and in the client voice, not generic praise.', n: '[Client Name]', r: '[Role, Company]' }
+ { 
+  q: 'Working with Sijo was one of the smoothest experiences we’ve had with a video editor. The pacing, transitions, and storytelling completely changed the quality of our content and helped us retain viewers much longer.', 
+  n: 'Arjun Menon', 
+  r: 'Content Creator, Frame Theory Media' 
+},
+
+{ 
+  q: 'After the final edit went live, our engagement noticeably increased across Instagram and YouTube. The edits felt modern, clean, and exactly aligned with our brand style. Communication was fast and professional throughout.', 
+  n: 'Nivedita Roy', 
+  r: 'Marketing Lead, Nova Digital' 
+},
+
+{ 
+  q: 'What stood out most was the attention to detail. Every cut, sound effect, and motion graphic felt intentional. The final video looked premium and helped our campaign feel far more polished and credible.', 
+  n: 'Daniel Joseph', 
+  r: 'Founder, Elevate Creative Studio' 
+}
   ];
   const testiTrack = document.getElementById('testiTrack');
   TESTIMONIALS.forEach((t, i) => {
