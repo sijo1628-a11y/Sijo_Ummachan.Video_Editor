@@ -435,6 +435,83 @@ footer{padding:50px 0;border-top:1px solid var(--border)}
   *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
   .reveal{opacity:1;transform:none}
 }
+
+/* ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+   NEW CODE — AI CHATBOT WIDGET (CSS) — added by Claude
+   Search "NEW CODE — AI CHATBOT" anywhere in this file to jump to
+   every block that was added: this CSS, the HTML markup near the
+   end of <body>, and the JS logic inside the main <script>.
+   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ */
+#aiChatToggle{
+  position:fixed;left:28px;bottom:28px;z-index:996;
+  width:58px;height:58px;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  display:flex;align-items:center;justify-content:center;
+  color:#040308;font-size:22px;
+  box-shadow:0 0 22px rgba(0,240,255,.35);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+}
+#aiChatToggle:hover{transform:translateY(-3px);box-shadow:0 0 30px rgba(139,61,255,.55),0 0 55px rgba(0,240,255,.3)}
+#aiChatToggle .ai-ping{position:absolute;top:-3px;right:-3px;width:12px;height:12px;border-radius:50%;background:var(--magenta);box-shadow:0 0 8px var(--magenta);animation:blink 1.6s infinite}
+#aiChatToggle .ai-label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-family:var(--f-mono);font-size:9.5px;letter-spacing:.16em;color:var(--text-dimmer);white-space:nowrap}
+@media (max-width:640px){#aiChatToggle{left:18px;bottom:18px;width:52px;height:52px}}
+
+#aiChatPanel{
+  position:fixed;left:28px;bottom:100px;z-index:997;
+  width:min(360px,calc(100vw - 40px));height:min(500px,70vh);
+  background:var(--panel);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border:1px solid var(--border);
+  clip-path:polygon(0 14px,14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%);
+  display:flex;flex-direction:column;overflow:hidden;
+  opacity:0;visibility:hidden;transform:translateY(16px) scale(.97);transform-origin:bottom left;
+  transition:opacity .3s var(--ease),transform .3s var(--ease),visibility .3s;
+}
+#aiChatPanel.open{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+@media (max-width:640px){#aiChatPanel{left:18px;bottom:82px;height:min(460px,65vh)}}
+
+.ai-chat-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:16px 18px;border-bottom:1px solid var(--border);
+  background:linear-gradient(135deg,rgba(0,240,255,.06),transparent 60%);
+  flex-shrink:0;
+}
+.ai-chat-head .ai-title{font-family:var(--f-display);font-size:13px;letter-spacing:.06em;color:var(--text);display:flex;align-items:center}
+.ai-chat-head .ai-sub{font-family:var(--f-mono);font-size:10px;color:var(--text-dimmer);letter-spacing:.06em;margin-top:4px}
+.ai-chat-head .ai-status{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan);display:inline-block;margin-right:7px;animation:blink 1.8s infinite}
+#aiChatClose{color:var(--text-dim);font-size:16px;width:28px;height:28px;flex-shrink:0}
+#aiChatClose:hover{color:var(--magenta)}
+
+.ai-chat-body{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.ai-msg{max-width:85%;font-size:13.5px;line-height:1.5;padding:10px 13px;font-family:var(--f-body)}
+.ai-msg.bot{align-self:flex-start;background:rgba(255,255,255,.04);border-left:2px solid var(--cyan);color:var(--text)}
+.ai-msg.user{align-self:flex-end;background:linear-gradient(90deg,var(--cyan),var(--purple));color:#040308;font-weight:600}
+.ai-msg-time{display:block;font-family:var(--f-mono);font-size:9px;color:var(--text-dimmer);margin-top:5px;letter-spacing:.05em}
+.ai-msg.user .ai-msg-time{color:rgba(4,3,8,.55)}
+
+.ai-typing{align-self:flex-start;display:flex;gap:4px;padding:10px 13px;background:rgba(255,255,255,.04);border-left:2px solid var(--cyan)}
+.ai-typing span{width:5px;height:5px;border-radius:50%;background:var(--text-dim);animation:aiTypingBounce 1.1s infinite}
+.ai-typing span:nth-child(2){animation-delay:.15s}
+.ai-typing span:nth-child(3){animation-delay:.3s}
+@keyframes aiTypingBounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+
+.ai-chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 18px 14px;flex-shrink:0}
+.ai-chip{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-dim);
+  border:1px solid var(--border);padding:7px 12px;
+  clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+  transition:.3s var(--ease);
+}
+.ai-chip:hover{color:var(--bg);background:var(--cyan);border-color:var(--cyan)}
+
+.ai-chat-input-row{display:flex;gap:8px;padding:14px 18px;border-top:1px solid var(--border);flex-shrink:0}
+#aiChatInput{flex:1;border:1px solid var(--border);background:rgba(255,255,255,.02);padding:11px 13px;font-size:13px;color:var(--text);transition:border-color .3s,box-shadow .3s}
+#aiChatInput:focus{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,240,255,.15)}
+#aiChatSend{width:40px;height:40px;flex-shrink:0;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#040308;display:flex;align-items:center;justify-content:center;clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px)}
+#aiChatSend:hover{box-shadow:0 0 16px rgba(0,240,255,.4)}
+/* ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+   END NEW CODE — AI CHATBOT WIDGET (CSS)
+   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ */
 </style>
 </head>
 <body>
@@ -683,23 +760,10 @@ footer{padding:50px 0;border-top:1px solid var(--border)}
           <span class="ic"><i class="fa-solid fa-phone"></i></span>
           <span><b>Phone</b><span>+91 79943 81628</span></span>
         </a>
-       <a class="ccard panel" 
-   href="https://wa.me/917994381628?text=Hello%2C%20I%27m%20interested%20in%20your%20video%20editing%20services%20and%20would%20like%20to%20chat%20about%20a%20potential%20project.%20Is%20there%20a%20good%20time%20to%20talk%3F" 
-   target="_blank" 
-   rel="noopener">
-  
-  <div class="corner tl"></div>
-  <div class="corner br"></div>
-
-  <span class="ic">
-    <i class="fa-brands fa-whatsapp"></i>
-  </span>
-
-  <span>
-    <b>WhatsApp</b>
-    <span>Chat instantly</span>
-  </span>
-</a>
+        <a class="ccard panel" href="https://wa.me/917994381628?text=Hello%2C%20I%27m%20interested%20in%20your%20video%20editing%20services%20and%20would%20like%20to%20chat%20about%20a%20potential%20project.%20Is%20there%20a%20good%20time%20to%20talk%3F" target="_blank" rel="noopener"><div class="corner tl"></div><div class="corner br"></div>
+          <span class="ic"><i class="fa-brands fa-whatsapp"></i></span>
+          <span><b>WhatsApp</b><span>Chat instantly</span></span>
+        </a>
         <a class="ccard panel" href="mailto:sijo1628@gmail.com"><div class="corner tl"></div><div class="corner br"></div>
           <span class="ic"><i class="fa-solid fa-envelope"></i></span>
           <span><b>Email</b><span>sijo1628@gmail.com</span></span>
@@ -742,6 +806,40 @@ footer{padding:50px 0;border-top:1px solid var(--border)}
   </div>
 </footer>
 
+<!-- ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+     NEW CODE — AI CHATBOT WIDGET (HTML) — added by Claude
+     Search "NEW CODE — AI CHATBOT" anywhere in this file to find the
+     matching CSS (top of <style>) and JS (inside the main <script>).
+     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
+<button id="aiChatToggle" aria-label="Open assistant">
+  <i class="fa-solid fa-message"></i>
+  <span class="ai-ping"></span>
+  <span class="ai-label">ASK S/E</span>
+</button>
+
+<div id="aiChatPanel" role="dialog" aria-label="Portfolio assistant">
+  <div class="ai-chat-head">
+    <div>
+      <div class="ai-title"><span class="ai-status"></span>S/E ASSISTANT</div>
+      <div class="ai-sub">// ASK ABOUT SERVICES, PRICING, PROCESS</div>
+    </div>
+    <button id="aiChatClose" aria-label="Close assistant"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="ai-chat-body" id="aiChatBody"></div>
+  <div class="ai-chips" id="aiChatChips">
+    <button class="ai-chip" data-q="What services do you offer?">Services</button>
+    <button class="ai-chip" data-q="How much do you charge?">Pricing</button>
+    <button class="ai-chip" data-q="How can I contact you?">Contact</button>
+    <button class="ai-chip" data-q="How long does editing take?">Turnaround</button>
+  </div>
+  <div class="ai-chat-input-row">
+    <input type="text" id="aiChatInput" placeholder="Type a question..." autocomplete="off">
+    <button id="aiChatSend" aria-label="Send"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+<!-- ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+     END NEW CODE — AI CHATBOT WIDGET (HTML)
+     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ -->
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -1052,23 +1150,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ================= TESTIMONIALS DATA + RENDER ================= */
   const TESTIMONIALS = [
- { 
-  q: 'Working with Sijo was one of the smoothest experiences we’ve had with a video editor. The pacing, transitions, and storytelling completely changed the quality of our content and helped us retain viewers much longer.', 
-  n: 'Arjun Menon', 
-  r: 'Content Creator, Frame Theory Media' 
-},
-
-{ 
-  q: 'After the final edit went live, our engagement noticeably increased across Instagram and YouTube. The edits felt modern, clean, and exactly aligned with our brand style. Communication was fast and professional throughout.', 
-  n: 'Nivedita Roy', 
-  r: 'Marketing Lead, Nova Digital' 
-},
-
-{ 
-  q: 'What stood out most was the attention to detail. Every cut, sound effect, and motion graphic felt intentional. The final video looked premium and helped our campaign feel far more polished and credible.', 
-  n: 'Daniel Joseph', 
-  r: 'Founder, Elevate Creative Studio' 
-}
+    { q: 'Add a short, powerful client quote here — focus on the results and the experience of working together.', n: '[Client Name]', r: '[Role, Company]' },
+    { q: 'Add a second testimonial — what changed after the edit shipped? Views, engagement, or brand feel.', n: '[Client Name]', r: '[Role, Company]' },
+    { q: 'A third quote rounds out the section — keep it specific and in the client voice, not generic praise.', n: '[Client Name]', r: '[Role, Company]' }
   ];
   const testiTrack = document.getElementById('testiTrack');
   TESTIMONIALS.forEach((t, i) => {
@@ -1121,6 +1205,123 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nProject Type: ${type}\n\n${msg}`);
     window.location.href = `mailto:sijo1628@gmail.com?subject=${subject}&body=${body}`;
   });
+
+  /* ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+     NEW CODE — AI CHATBOT WIDGET (JS) — added by Claude
+     This is a self-contained, rule-based FAQ bot: it runs entirely in
+     the visitor's browser and matches keywords in their message
+     against the AI_KB list below. It is NOT connected to a live AI
+     model or any external API — see Claude's chat reply for why, and
+     how to wire this up to a real backend later if you want to.
+     Search "NEW CODE — AI CHATBOT" to find the matching CSS (top of
+     <style>) and HTML (just before this <script> tag, after </footer>).
+     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ */
+  (function () {
+    const toggle = document.getElementById('aiChatToggle');
+    const panel = document.getElementById('aiChatPanel');
+    const closeBtn = document.getElementById('aiChatClose');
+    const chatBody = document.getElementById('aiChatBody');
+    const chatInput = document.getElementById('aiChatInput');
+    const sendBtn = document.getElementById('aiChatSend');
+    const chips = document.getElementById('aiChatChips');
+
+    /* Knowledge base: each entry is a set of trigger keywords + a reply.
+       First matching entry wins, so more specific entries are listed
+       before generic ones (e.g. "hire" before the plain greeting). */
+    const AI_KB = [
+      { keys: ['hire', 'work together', 'start a project', 'book', 'get in touch'],
+        a: 'Best next step: use the "Start a Project" button or the contact form below \u2014 share the project type and you\u2019ll get a reply within 24 hours.' },
+      { keys: ['price', 'cost', 'rate', 'budget', 'charge', 'how much', 'quote'],
+        a: 'Pricing depends on project length, scope, and turnaround, so there\u2019s no fixed rate card here. Send a brief through the contact form below and you\u2019ll get a quote back within 24 hours.' },
+      { keys: ['service', 'offer', 'what do you do', 'what can you edit'],
+        a: 'Services on offer: cinematic video editing, motion graphics, VFX editing, color grading, trailer editing, YouTube editing, gaming montages, social media reels, AI-enhanced editing, and sound design \u2014 see the Services section above for the full menu.' },
+      { keys: ['software', 'tool', 'premiere', 'after effects', 'davinci', 'resolve', 'capcut', 'program', 'blender', 'photoshop'],
+        a: 'The toolkit: Premiere Pro and After Effects for the core edit and motion graphics, CapCut for fast turnarounds, Photoshop for stills, DaVinci Resolve for grading, and Blender for 3D work.' },
+      { keys: ['experience', 'how long have', 'years', 'background', 'about you'],
+        a: '7+ years cutting cinematic content \u2014 music videos, commercials, YouTube, gaming, and reels \u2014 for clients across 12+ countries. More detail in the About section above.' },
+      { keys: ['turnaround', 'deadline', 'delivery', 'how fast', 'how long does'],
+        a: 'Turnaround varies by project scope \u2014 share your timeline in the contact form and it\u2019ll be factored into the quote. Initial replies land within 24 hours.' },
+      { keys: ['portfolio', 'showreel', 'reel', 'examples', 'past work', 'projects'],
+        a: 'Take a look at the Work section above \u2014 it\u2019s filterable by Music Videos, Commercials, YouTube, Gaming, Reels, Travel, and VFX.' },
+      { keys: ['contact', 'email', 'phone', 'whatsapp', 'reach', 'number'],
+        a: 'Fastest ways to reach out: WhatsApp at +91 79943 81628, email at sijo1628@gmail.com, or the contact form below \u2014 all listed in the Contact section.' },
+      { keys: ['location', 'based', 'where are you', 'kerala', 'country'],
+        a: 'Based in Kerala, India \u2014 working with clients worldwide, remote-friendly.' },
+      { keys: ['process', 'workflow', 'how it works', 'steps'],
+        a: 'The pipeline runs: concept upload, storyboarding, raw footage sync, cinematic edit, motion graphics, sound design, then final render. Full breakdown in the Process section above.' },
+      { keys: ['thank', 'thanks', 'cheers'],
+        a: 'Anytime! Let me know if there\u2019s anything else you\u2019d like to check before reaching out.' },
+      { keys: ['hi', 'hello', 'hey', 'yo'],
+        a: 'Hey! I can help with quick questions on services, pricing, turnaround, tools, or how to get in touch. What would you like to know?' }
+    ];
+
+    function findAnswer(msg) {
+      const lower = msg.toLowerCase();
+      for (const entry of AI_KB) {
+        if (entry.keys.some(k => lower.includes(k))) return entry.a;
+      }
+      return 'That one\u2019s outside what I can answer directly \u2014 the fastest way to get a real answer is the contact form below, or WhatsApp at +91 79943 81628.';
+    }
+
+    function timeStamp() {
+      const d = new Date();
+      return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function addMsg(text, who) {
+      const el = document.createElement('div');
+      el.className = 'ai-msg ' + who;
+      const safe = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      el.innerHTML = safe + '<span class="ai-msg-time">' + timeStamp() + '</span>';
+      chatBody.appendChild(el);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function botReply(userText) {
+      const typing = document.createElement('div');
+      typing.className = 'ai-typing';
+      typing.innerHTML = '<span></span><span></span><span></span>';
+      chatBody.appendChild(typing);
+      chatBody.scrollTop = chatBody.scrollHeight;
+      setTimeout(() => {
+        typing.remove();
+        addMsg(findAnswer(userText), 'bot');
+      }, 500 + Math.random() * 400);
+    }
+
+    function sendMessage(text) {
+      const trimmed = (text || '').trim();
+      if (!trimmed) return;
+      addMsg(trimmed, 'user');
+      chatInput.value = '';
+      botReply(trimmed);
+    }
+
+    let started = false;
+    function openPanel() {
+      panel.classList.add('open');
+      if (!started) {
+        started = true;
+        addMsg('Hey, I\u2019m the S/E assistant \u2014 ask me about services, pricing, tools, turnaround, or how to get in touch.', 'bot');
+      }
+      chatInput.focus();
+    }
+    function closePanel() { panel.classList.remove('open'); }
+
+    toggle.addEventListener('click', () => {
+      panel.classList.contains('open') ? closePanel() : openPanel();
+    });
+    closeBtn.addEventListener('click', closePanel);
+    sendBtn.addEventListener('click', () => sendMessage(chatInput.value));
+    chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(chatInput.value); });
+    chips.addEventListener('click', e => {
+      const btn = e.target.closest('.ai-chip');
+      if (btn) sendMessage(btn.dataset.q);
+    });
+  })();
+  /* ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+     END NEW CODE — AI CHATBOT WIDGET (JS)
+     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ */
 
   /* re-layout scrubber marks once all dynamic content is in the DOM */
   setTimeout(() => { layoutMarks(); onScroll(); }, 600);
